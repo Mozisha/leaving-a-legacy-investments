@@ -4,7 +4,6 @@ const team = [
   {
     name: "Phya",
     role: "Founder & Owner, Leaving a Legacy Investments",
-    // Drop the headshot at public/team/phya.webp (or .jpg / .png) to activate it.
     image: "/phya.webp",
   },
 ];
@@ -34,13 +33,10 @@ export function TeamSection() {
               key={name}
               className="flex w-64 flex-col items-center rounded-xl bg-white p-8 shadow-sm"
             >
-              {/* Avatar — gold ring matches screenshot */}
+              {/* Avatar — gold ring */}
               <div className="relative h-44 w-44 shrink-0">
-                {/* Gold outer ring */}
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-[#c8a84b] via-[#e8c96d] to-[#c8a84b] p-[5px]">
-                  {/* White gap */}
                   <div className="h-full w-full rounded-full bg-white p-[3px]">
-                    {/* Photo / placeholder */}
                     <div className="relative h-full w-full overflow-hidden rounded-full bg-[#d4a84b]">
                       <Image
                         src={image}
