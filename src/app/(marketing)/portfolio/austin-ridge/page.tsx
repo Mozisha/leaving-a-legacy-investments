@@ -2,10 +2,37 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+const BASE = "https://leavingalegacyinvestments.com";
+
 export const metadata: Metadata = {
-  title: "Austin Ridge",
+  title: "Austin Ridge | 52-Unit Multifamily Investment — Southern Pines, NC",
   description:
-    "Closed — 52 Units in Southern Pines, NC. Delivering 17%+ IRR, 10%+ cash-on-cash, and a 2.1x equity multiple over 5 years.",
+    "Closed deal: 52 units in Southern Pines, NC. Delivering 17%+ IRR, 10%+ cash-on-cash, and 2.1x equity multiple over 5 years. A Leaving a Legacy Investments acquisition.",
+  keywords: [
+    "Austin Ridge Southern Pines NC",
+    "52 unit multifamily investment North Carolina",
+    "real estate syndication Southern Pines",
+    "apartment investment 17% IRR",
+    "closed multifamily deal",
+  ],
+  alternates: { canonical: `${BASE}/portfolio/austin-ridge` },
+  openGraph: {
+    title: "Austin Ridge | 52-Unit Multifamily — Southern Pines, NC",
+    description: "Closed deal delivering 17%+ IRR and 10%+ cash-on-cash.",
+    url: `${BASE}/portfolio/austin-ridge`,
+    images: [{ url: `${BASE}/houses/ridge-1.webp`, width: 1200, height: 630, alt: "Austin Ridge — 52 Units, Southern Pines NC" }],
+  },
+};
+
+const propertySchema = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  name: "Austin Ridge",
+  description: "52-unit multifamily property in Southern Pines, NC. Closed deal delivering 17%+ IRR.",
+  url: `${BASE}/portfolio/austin-ridge`,
+  image: `${BASE}/houses/ridge-1.webp`,
+  numberOfRooms: 52,
+  address: { "@type": "PostalAddress", addressLocality: "Southern Pines", addressRegion: "NC", addressCountry: "US" },
 };
 
 /* ── Data ──────────────────────────────────────────────── */
@@ -49,6 +76,7 @@ const photos = [
 export default function AustinRidgePage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(propertySchema) }} />
       {/* ── Hero / Photo Header ── */}
       <section className="bg-[#ddeaf7] px-6 pb-0 pt-16 lg:px-12">
         {/* Title block */}

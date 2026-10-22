@@ -1,11 +1,40 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { HeroForm } from "@/components/sections/hero-form";
 import { AboutSection } from "@/components/sections/about-section";
 import { NewsletterSection } from "@/components/sections/newsletter-section";
 import { PortfolioCarousel } from "@/components/sections/portfolio-carousel";
 import { siteConfig } from "@/lib/site";
 
-/* ─── Social icon SVGs ─────────────────────────────────────── */
+const BASE = "https://leavingalegacyinvestments.com";
+
+export const metadata: Metadata = {
+  title: "Real Estate Syndication & Multifamily Investing | Leaving a Legacy Investments",
+  description:
+    "Turn prospective properties into lucrative investments. Leaving a Legacy Investments offers accredited investors passive income through commercial multifamily and hotel syndications. Min. investment $25K–$50K.",
+  keywords: [
+    "real estate syndication",
+    "multifamily investing",
+    "passive real estate investment",
+    "accredited investor real estate",
+    "apartment complex syndication",
+    "hotel investment fund",
+    "generational wealth real estate",
+    "leaving a legacy investments",
+    "real estate limited partnership",
+    "passive income investing",
+  ],
+  alternates: { canonical: BASE },
+  openGraph: {
+    title: "Leaving a Legacy Investments | Real Estate Syndication",
+    description:
+      "Passive investments in commercial multifamily properties and hotels. Build generational wealth with a trusted partner.",
+    url: BASE,
+    images: [{ url: `${BASE}/hero-image.webp`, width: 1200, height: 630, alt: "Leaving a Legacy Investments Hero" }],
+  },
+};
+
+/* ── Social icon SVGs ─────────────────────────────────────── */
 function FacebookIcon() {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="h-5 w-5">
@@ -33,98 +62,48 @@ function LinkedInIcon() {
 const socialLinks = [
   { href: siteConfig.social.facebook, label: "Facebook", Icon: FacebookIcon },
   { href: siteConfig.social.instagram, label: "Instagram", Icon: InstagramIcon },
-  // LinkedIn placeholder — update siteConfig.social.linkedin when available
   { href: siteConfig.social.linkedin || "#", label: "LinkedIn", Icon: LinkedInIcon },
 ];
 
 export default function HomePage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────── */}
       <section className="relative w-full overflow-hidden">
-
-        {/* Full-width background image — shows through the right half on desktop */}
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: "url('/hero-image.webp')" }}
-          aria-hidden="true"
-        />
-
-        {/* Content: two columns on desktop, stacked on mobile */}
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/hero-image.webp')" }} aria-hidden="true" />
         <div className="relative z-10 flex w-full flex-col md:flex-row md:items-stretch">
-
-          {/* ── Left: solid navy panel ── */}
           <div className="flex w-full flex-col justify-center bg-[#0d1b3e] px-8 py-16 md:w-1/2 md:min-h-[520px] lg:px-16">
             <h1 className="text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
               Turning Prospective Properties Into Lucrative Investments
             </h1>
             <p className="mt-5 max-w-md text-sm leading-relaxed text-white/80 sm:text-base">
-              Motivating others through real estate investment insight and
-              opportunities, affording them a chance to build and Leave a
-              Legacy of wealth, stability and security for generations to come.
+              Motivating others through real estate investment insight and opportunities, affording them a chance to build and Leave a Legacy of wealth, stability and security for generations to come.
             </p>
-            <Link
-              href="/portfolio"
-              className="mt-8 inline-flex w-fit items-center gap-2 border border-white px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[#0d1b3e]"
-            >
+            <Link href="/portfolio" className="mt-8 inline-flex w-fit items-center gap-2 border border-white px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-[#0d1b3e]">
               View Our Portfolio
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
             </Link>
-
-            {/* Social icons — horizontal row, visible on mobile only (inside navy panel) */}
             <div className="mt-8 flex items-center gap-3 md:hidden">
               {socialLinks.map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white hover:text-[#0d1b3e]"
-                >
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white hover:text-[#0d1b3e]">
                   <Icon />
                 </a>
               ))}
             </div>
           </div>
-
-          {/* ── Right: image shows through, form + desktop social icons ── */}
           <div className="relative flex w-full items-center justify-center bg-[#0d1b3e]/50 px-8 py-16 md:w-1/2 md:min-h-[520px] md:bg-transparent lg:px-12">
-
-            {/* Form card */}
-            <div className="w-full max-w-md">
-              <HeroForm />
-            </div>
-
-            {/* Social icons — vertical column pinned to the far right edge, desktop only */}
+            <div className="w-full max-w-md"><HeroForm /></div>
             <div className="absolute right-2 top-1/2 hidden -translate-y-1/2 flex-col gap-3 lg:flex lg:right-3">
               {socialLinks.map(({ href, label, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900/80 text-white transition-colors hover:bg-[#1a4fa0]"
-                >
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900/80 text-white transition-colors hover:bg-[#1a4fa0]">
                   <Icon />
                 </a>
               ))}
             </div>
           </div>
-
         </div>
       </section>
-
-      {/* ── About / Value Props section ── */}
       <AboutSection />
-
-      {/* ── Newsletter / Mailchimp section ── */}
       <NewsletterSection />
-
-      {/* ── Portfolio image carousel ── */}
       <PortfolioCarousel />
     </>
   );

@@ -2,10 +2,42 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+const BASE = "https://leavingalegacyinvestments.com";
+
 export const metadata: Metadata = {
-  title: "Butterworth Flats & Odd Fellows Lofts",
+  title: "Butterworth Flats & Odd Fellows Lofts | 64-Unit Mixed-Use — Petersburg, VA",
   description:
-    "64 residential units + 17,200 SF of commercial space in Historic Downtown Petersburg, VA. 100% occupied. 18-20% IRR target.",
+    "64 residential units + 17,200 SF commercial space in Historic Downtown Petersburg, VA. 100% occupied. Target 18-20% IRR, 2.2x equity multiple, 6-year hold. Active opportunity from Leaving a Legacy Investments.",
+  keywords: [
+    "Butterworth Flats Petersburg VA",
+    "Odd Fellows Lofts Petersburg VA",
+    "mixed use real estate investment Virginia",
+    "historic downtown Petersburg investment",
+    "64 unit apartment investment",
+    "commercial real estate Petersburg VA",
+    "multifamily hotel investment Virginia",
+    "18-20% IRR real estate",
+    "event space investment",
+    "real estate syndication Virginia",
+  ],
+  alternates: { canonical: `${BASE}/portfolio/butterworth-flats` },
+  openGraph: {
+    title: "Butterworth Flats & Odd Fellows Lofts | Petersburg, VA",
+    description: "64 units + 17K SF commercial, 100% occupied, Historic Downtown Petersburg. Target 18-20% IRR.",
+    url: `${BASE}/portfolio/butterworth-flats`,
+    images: [{ url: `${BASE}/houses/butterworth-1.webp`, width: 1200, height: 630, alt: "Butterworth Flats — Petersburg, VA" }],
+  },
+};
+
+const propertySchema = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  name: "Butterworth Flats & Odd Fellows Lofts",
+  description: "64 residential units + 17,200 SF commercial space in Historic Downtown Petersburg, VA. 100% occupied. Target 18-20% IRR.",
+  url: `${BASE}/portfolio/butterworth-flats`,
+  image: `${BASE}/houses/butterworth-1.webp`,
+  numberOfRooms: 64,
+  address: { "@type": "PostalAddress", addressLocality: "Petersburg", addressRegion: "VA", addressCountry: "US" },
 };
 
 /* ── Data ─────────────────────────────────────────────── */
@@ -96,6 +128,7 @@ const photos = [
 export default function ButterworthFlatsPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(propertySchema) }} />
       {/* ── Hero / Photo Header ── */}
       <section className="bg-[#ddeaf7] px-6 pb-0 pt-16 lg:px-12">
         <div className="mx-auto max-w-4xl text-center">

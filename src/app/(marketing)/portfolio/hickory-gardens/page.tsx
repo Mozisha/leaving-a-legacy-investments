@@ -2,10 +2,39 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
+const BASE = "https://leavingalegacyinvestments.com";
+
 export const metadata: Metadata = {
-  title: "Hickory Gardens",
+  title: "Hickory Gardens | 48-Unit Affordable Housing Investment — Hickory, NC",
   description:
-    "A 48-unit affordable housing property in Hickory, NC — delivering 25%+ IRR, 14% cash-on-cash, and a 2.1x equity multiple over 5 years.",
+    "Closed deal: 48-unit affordable housing property in Hickory, NC. Delivered 25%+ IRR, 14% cash-on-cash, and 2.1x equity multiple over 5 years. A Leaving a Legacy Investments acquisition.",
+  keywords: [
+    "Hickory Gardens Hickory NC investment",
+    "48 unit affordable housing investment",
+    "multifamily real estate Hickory NC",
+    "closed real estate deal 25% IRR",
+    "apartment complex investment returns",
+    "real estate syndication North Carolina",
+    "affordable housing syndication",
+  ],
+  alternates: { canonical: `${BASE}/portfolio/hickory-gardens` },
+  openGraph: {
+    title: "Hickory Gardens | 48-Unit Multifamily — Hickory, NC",
+    description: "Closed multifamily deal delivering 25%+ IRR and 14% cash-on-cash. A Leaving a Legacy Investments acquisition.",
+    url: `${BASE}/portfolio/hickory-gardens`,
+    images: [{ url: `${BASE}/houses/hickory-1.webp`, width: 1200, height: 630, alt: "Hickory Gardens — 48-Unit Affordable Housing, Hickory NC" }],
+  },
+};
+
+const propertySchema = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  name: "Hickory Gardens",
+  description: "48-unit affordable housing property in Hickory, NC. Closed deal delivering 25%+ IRR, 14% cash-on-cash, and 2.1x equity multiple.",
+  url: `${BASE}/portfolio/hickory-gardens`,
+  image: `${BASE}/houses/hickory-1.webp`,
+  numberOfRooms: 48,
+  address: { "@type": "PostalAddress", addressLocality: "Hickory", addressRegion: "NC", addressCountry: "US" },
 };
 
 /* ── Data ──────────────────────────────────────────────── */
@@ -48,6 +77,7 @@ const photos = [
 export default function HickoryGardensPage() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(propertySchema) }} />
       {/* ── Hero / Photo Header ── */}
       <section className="bg-[#ddeaf7] px-6 pb-0 pt-16 lg:px-12">
         {/* Title block */}
