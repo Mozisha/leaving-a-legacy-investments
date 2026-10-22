@@ -4,6 +4,7 @@ import { HeroForm } from "@/components/sections/hero-form";
 import { AboutSection } from "@/components/sections/about-section";
 import { NewsletterSection } from "@/components/sections/newsletter-section";
 import { PortfolioCarousel } from "@/components/sections/portfolio-carousel";
+import { EmailPopup } from "@/components/ui/email-popup";
 import { siteConfig } from "@/lib/site";
 
 const BASE = "https://leavingalegacyinvestments.com";
@@ -105,6 +106,7 @@ export default function HomePage() {
       <AboutSection />
       <NewsletterSection />
       <PortfolioCarousel />
+      <EmailPopup />
     </>
   );
 }
