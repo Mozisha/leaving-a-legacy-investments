@@ -5,14 +5,40 @@ import { useState } from "react";
 export function HeroForm() {
   const [pending, setPending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
-    // TODO: wire up real form submission (e.g. email service or API route)
-    await new Promise((r) => setTimeout(r, 800));
-    setPending(false);
-    setSent(true);
+    setError("");
+
+    const data = new FormData(e.currentTarget);
+    const fullName = (data.get("name") as string).trim();
+    const [firstName, ...rest] = fullName.split(" ");
+    const lastName = rest.join(" ");
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email: data.get("email"),
+        }),
+      });
+
+      if (!res.ok) {
+        const json = await res.json();
+        setError(json.error ?? "Something went wrong. Please try again.");
+      } else {
+        setSent(true);
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
@@ -51,9 +77,11 @@ export function HeroForm() {
             name="message"
             placeholder="Message"
             rows={4}
-            required
             className="w-full resize-none rounded border border-gray-300 px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-[#1a4fa0] focus:outline-none focus:ring-1 focus:ring-[#1a4fa0]"
           />
+          {error && (
+            <p className="text-xs text-red-600">{error}</p>
+          )}
           <button
             type="submit"
             disabled={pending}

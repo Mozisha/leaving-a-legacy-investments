@@ -5,31 +5,49 @@ import { useState } from "react";
 export function NewsletterSection() {
   const [pending, setPending] = useState(false);
   const [sent, setSent] = useState(false);
+  const [error, setError] = useState("");
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setPending(true);
-    // TODO: wire up Mailchimp API / route handler
-    await new Promise((r) => setTimeout(r, 800));
-    setPending(false);
-    setSent(true);
+    setError("");
+
+    const data = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: data.get("firstName"),
+          lastName: data.get("lastName"),
+          email: data.get("email"),
+        }),
+      });
+
+      if (!res.ok) {
+        const json = await res.json();
+        setError(json.error ?? "Something went wrong. Please try again.");
+      } else {
+        setSent(true);
+      }
+    } catch {
+      setError("Network error. Please check your connection and try again.");
+    } finally {
+      setPending(false);
+    }
   }
 
   return (
     <section className="relative w-full overflow-hidden py-20 lg:py-28">
-      {/* Background image */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/hero-image.webp')" }}
         aria-hidden="true"
       />
-      {/* Dark overlay */}
       <div className="absolute inset-0 bg-gray-900/75" aria-hidden="true" />
 
-      {/* Content wrapper — full bleed padding */}
       <div className="relative z-10 mx-auto w-full px-6 lg:px-12">
-
-        {/* Heading — spans up to max-w-6xl so it fills the screen on desktop */}
         <div className="mx-auto max-w-6xl">
           <h2 className="text-center text-2xl font-bold leading-tight text-white sm:text-3xl lg:text-5xl">
             Stay informed about new investment opportunities, crucial for making
@@ -43,7 +61,6 @@ export function NewsletterSection() {
           </p>
         </div>
 
-        {/* Form — narrower container for readability */}
         <div className="mx-auto mt-10 w-full max-w-3xl">
           {sent ? (
             <div className="rounded bg-white/10 px-6 py-5 text-center text-white">
@@ -58,7 +75,6 @@ export function NewsletterSection() {
               className="flex flex-col gap-4"
               aria-label="Investment opportunities newsletter signup"
             >
-              {/* First / Last name row */}
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="firstName" className="text-sm font-medium text-white">
@@ -88,7 +104,6 @@ export function NewsletterSection() {
                 </div>
               </div>
 
-              {/* Email */}
               <div className="flex flex-col gap-1">
                 <label htmlFor="nlEmail" className="text-sm font-medium text-white">
                   Email <span className="text-red-400">*</span>
@@ -103,7 +118,6 @@ export function NewsletterSection() {
                 />
               </div>
 
-              {/* Message */}
               <div className="flex flex-col gap-1">
                 <label htmlFor="nlMessage" className="text-sm font-medium text-white">
                   Message
@@ -117,7 +131,10 @@ export function NewsletterSection() {
                 />
               </div>
 
-              {/* Submit */}
+              {error && (
+                <p className="text-xs text-red-400">{error}</p>
+              )}
+
               <button
                 type="submit"
                 disabled={pending}
@@ -128,7 +145,6 @@ export function NewsletterSection() {
             </form>
           )}
         </div>
-
       </div>
     </section>
   );

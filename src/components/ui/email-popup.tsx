@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "lali_popup_dismissed";
-const DELAY_MS = 5000; // 5 seconds after page load
+const DELAY_MS = 5000;
 
 export function EmailPopup() {
   const [visible, setVisible] = useState(false);
+  const [pending, setPending] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // Don't show if already dismissed this session
     if (sessionStorage.getItem(STORAGE_KEY)) return;
-
     const timer = setTimeout(() => setVisible(true), DELAY_MS);
     return () => clearTimeout(timer);
   }, []);
@@ -22,20 +22,49 @@ export function EmailPopup() {
     setVisible(false);
   }
 
-  // Close on Escape key
   useEffect(() => {
     if (!visible) return;
     function onKey(e: KeyboardEvent) {
       if (e.key === "Escape") dismiss();
     }
     document.addEventListener("keydown", onKey);
-    // Lock body scroll
     document.body.style.overflow = "hidden";
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
   }, [visible]);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setPending(true);
+    setError("");
+
+    const data = new FormData(e.currentTarget);
+
+    try {
+      const res = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: data.get("firstName"),
+          lastName: data.get("lastName"),
+          email: data.get("email"),
+        }),
+      });
+
+      if (!res.ok) {
+        const json = await res.json();
+        setError(json.error ?? "Something went wrong. Please try again.");
+      } else {
+        setSubmitted(true);
+      }
+    } catch {
+      setError("Network error. Please try again.");
+    } finally {
+      setPending(false);
+    }
+  }
 
   if (!visible) return null;
 
@@ -48,16 +77,12 @@ export function EmailPopup() {
       onClick={(e) => { if (e.target === e.currentTarget) dismiss(); }}
     >
       <div className="relative w-full max-w-lg overflow-hidden rounded-xl bg-white shadow-2xl">
-
         {/* Top navy banner */}
         <div className="bg-[#0d1b3e] px-8 py-6 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-white/60">
             Leaving a Legacy Investments
           </p>
-          <h2
-            id="popup-title"
-            className="mt-2 text-2xl font-bold text-white sm:text-3xl"
-          >
+          <h2 id="popup-title" className="mt-2 text-2xl font-bold text-white sm:text-3xl">
             Stay Ahead of the Market
           </h2>
           <p className="mt-2 text-sm text-white/75">
@@ -97,15 +122,7 @@ export function EmailPopup() {
               </button>
             </div>
           ) : (
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                // TODO: wire up ConvertKit API
-                setSubmitted(true);
-              }}
-              className="flex flex-col gap-4"
-              aria-label="Investment newsletter signup"
-            >
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4" aria-label="Investment newsletter signup">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="popup-first" className="text-xs font-semibold text-gray-600">
@@ -149,11 +166,14 @@ export function EmailPopup() {
                 />
               </div>
 
+              {error && <p className="text-xs text-red-600">{error}</p>}
+
               <button
                 type="submit"
-                className="mt-1 w-full rounded-md bg-[#1a4fa0] py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90"
+                disabled={pending}
+                className="mt-1 w-full rounded-md bg-[#1a4fa0] py-3 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60"
               >
-                Get Early Access
+                {pending ? "Submitting…" : "Get Early Access"}
               </button>
 
               <p className="text-center text-xs text-gray-400">
@@ -162,7 +182,6 @@ export function EmailPopup() {
             </form>
           )}
         </div>
-
       </div>
     </div>
   );
