@@ -16,9 +16,9 @@ export function Footer() {
         <Image
           src="/lali-logo.webp"
           alt="Leaving a Legacy Investments"
-          width={60}
-          height={40}
-          className="h-10 w-auto object-contain"
+          width={160}
+          height={64}
+          className="h-16 w-auto object-contain"
         />
       </div>
 

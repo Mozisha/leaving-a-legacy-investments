@@ -124,15 +124,15 @@ function DesktopNavLink({ label, href }: { label: string; href: string }) {
 export function Header() {
   return (
     <header className="sticky top-0 z-50 w-full border-b border-foreground/10 bg-white shadow-sm">
-      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-24 lg:px-16">
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center">
           <Image
             src="/lali-logo.webp"
             alt="Leaving a Legacy Investments"
-            width={120}
-            height={48}
-            className="h-12 w-auto object-contain"
+            width={160}
+            height={64}
+            className="h-16 w-auto object-contain"
             priority
           />
         </Link>
