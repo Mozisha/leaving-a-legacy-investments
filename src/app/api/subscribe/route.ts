@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     });
 
     const kitRes = await fetch(
-      `https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`,
+      `https://api.kit.com/v4/subscribers`,
       {
         method: "POST",
         headers: {
