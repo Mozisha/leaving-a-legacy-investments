@@ -6,7 +6,7 @@ const KIT_FORM_ID = process.env.KIT_FORM_ID;
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { firstName, lastName, email } = body;
+    const { firstName, lastName, email, message } = body;
 
     if (!email) {
       return NextResponse.json(
@@ -35,7 +35,10 @@ export async function POST(req: NextRequest) {
         body: JSON.stringify({
           email_address: email,
           first_name: firstName ?? "",
-          fields: lastName ? { last_name: lastName } : undefined,
+          last_name: lastName ?? "",
+          fields: {
+            ...(message ? { message } : {}),
+          },
         }),
       },
     );

@@ -25,6 +25,7 @@ export function HeroForm() {
           firstName,
           lastName,
           email: data.get("email"),
+          message: data.get("message"),
         }),
       });
 
@@ -58,7 +59,7 @@ export function HeroForm() {
           Thank you! We&apos;ll be in touch soon.
         </p>
       ) : (
-        <form onSubmit={handleSubmit} className="mt-5 flex flex-col gap-3">
+        <form onSubmit={handleSubmit} method="post" className="mt-5 flex flex-col gap-3">
           <input
             type="text"
             name="name"

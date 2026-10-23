@@ -22,6 +22,7 @@ export function NewsletterSection() {
           firstName: data.get("firstName"),
           lastName: data.get("lastName"),
           email: data.get("email"),
+          message: data.get("message"),
         }),
       });
 
@@ -75,6 +76,7 @@ export function NewsletterSection() {
               className="flex flex-col gap-4"
               aria-label="Investment opportunities newsletter signup"
             >
+              <input type="hidden" name="_method" value="post" />
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1">
                   <label htmlFor="firstName" className="text-sm font-medium text-white">

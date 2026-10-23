@@ -122,7 +122,7 @@ export function EmailPopup() {
               </button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4" aria-label="Investment newsletter signup">
+            <form onSubmit={handleSubmit} method="post" className="flex flex-col gap-4" aria-label="Investment newsletter signup">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="popup-first" className="text-xs font-semibold text-gray-600">
