@@ -8,22 +8,33 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { firstName, lastName, email, message } = body;
 
-    if (!email) {
+    if (!email || typeof email !== "string") {
       return NextResponse.json(
-        { error: "Email is required." },
+        { error: "A valid email is required." },
         { status: 400 },
       );
     }
 
     if (!KIT_API_KEY || !KIT_FORM_ID) {
-      console.error("Missing KIT_API_KEY or KIT_FORM_ID env vars");
+      console.error("[subscribe] Missing KIT_API_KEY or KIT_FORM_ID env vars");
       return NextResponse.json(
         { error: "Server configuration error." },
         { status: 500 },
       );
     }
 
-    // Kit v4 API — subscribe to a form
+    const payload = {
+      email_address: email.trim(),
+      ...(firstName?.trim() ? { first_name: firstName.trim() } : {}),
+      ...(lastName?.trim() ? { last_name: lastName.trim() } : {}),
+      ...(message?.trim() ? { fields: { message: message.trim() } } : {}),
+    };
+
+    console.log("[subscribe] Sending to Kit:", {
+      formId: KIT_FORM_ID,
+      payload,
+    });
+
     const kitRes = await fetch(
       `https://api.kit.com/v4/forms/${KIT_FORM_ID}/subscribers`,
       {
@@ -32,29 +43,27 @@ export async function POST(req: NextRequest) {
           "Content-Type": "application/json",
           "X-Kit-Api-Key": KIT_API_KEY,
         },
-        body: JSON.stringify({
-          email_address: email,
-          first_name: firstName ?? "",
-          last_name: lastName ?? "",
-          fields: {
-            ...(message ? { message } : {}),
-          },
-        }),
+        body: JSON.stringify(payload),
       },
     );
 
+    const responseText = await kitRes.text();
+
+    console.log("[subscribe] Kit response:", {
+      status: kitRes.status,
+      body: responseText,
+    });
+
     if (!kitRes.ok) {
-      const errorText = await kitRes.text();
-      console.error("Kit API error:", kitRes.status, errorText);
       return NextResponse.json(
-        { error: "Failed to subscribe. Please try again." },
-        { status: kitRes.status },
+        { error: "Kit could not process your subscription. Please try again." },
+        { status: 502 },
       );
     }
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
-    console.error("Subscribe route error:", err);
+    console.error("[subscribe] Unexpected error:", err);
     return NextResponse.json(
       { error: "Unexpected error. Please try again." },
       { status: 500 },
