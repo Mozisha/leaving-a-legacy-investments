@@ -60,9 +60,15 @@ export default function ContactPage() {
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0d1b3e] text-white">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" className="h-5 w-5" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
                   </div>
-                  <div>
+                  <div className="min-w-0 flex-1">
                     <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">Email</p>
-                    <a href={`mailto:${siteConfig.email}`} className="mt-0.5 break-all text-base font-medium text-[#0d1b3e] hover:text-[#1a4fa0] transition-colors">{siteConfig.email}</a>
+                    <a
+                      href={`mailto:${siteConfig.email}`}
+                      className="mt-0.5 block truncate text-sm font-medium text-[#0d1b3e] hover:text-[#1a4fa0] transition-colors sm:text-base"
+                      title={siteConfig.email}
+                    >
+                      {siteConfig.email}
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
