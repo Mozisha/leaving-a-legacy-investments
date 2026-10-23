@@ -2,12 +2,6 @@
 
 import { useState } from "react";
 
-const stats = [
-  { value: "$25K", label: "Min. Investment" },
-  { value: "7%+", label: "Preferred Return" },
-  { value: "3–7 yr", label: "Hold Period" },
-];
-
 export function NewsletterSection() {
   const [pending, setPending] = useState(false);
   const [sent, setSent] = useState(false);
@@ -84,16 +78,6 @@ export function NewsletterSection() {
               our portfolio with top-tier properties that deliver exceptional
               returns. Don&apos;t miss out when new deals become available.
             </p>
-
-            {/* Stats row */}
-            <div className="mt-8 grid grid-cols-3 gap-4 border-t border-white/10 pt-8">
-              {stats.map(({ value, label }) => (
-                <div key={label}>
-                  <p className="text-2xl font-extrabold text-white sm:text-3xl">{value}</p>
-                  <p className="mt-0.5 text-xs text-white/55">{label}</p>
-                </div>
-              ))}
-            </div>
 
             {/* Trust badge */}
             <div className="mt-6 flex items-center gap-2 text-xs text-white/50">
