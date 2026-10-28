@@ -143,14 +143,14 @@ export function WebinarGrid() {
   return (
     <div id="webinar-grid">
       {/* Grid */}
-      <div className="grid grid-cols-2 gap-6 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
         {visible.map(({ episode, thumbnail, youtubeUrl }) => (
           <div
             key={episode}
             className="group flex flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm transition-shadow duration-300 hover:shadow-lg"
           >
             {/* Thumbnail */}
-            <div className="relative h-36 w-full overflow-hidden sm:h-52">
+            <div className="relative h-24 w-full overflow-hidden sm:h-52">
               <Image
                 src={thumbnail}
                 alt={`Capital Conversations Episode ${episode}`}
@@ -163,11 +163,11 @@ export function WebinarGrid() {
             </div>
 
             {/* Card body */}
-            <div className="flex flex-1 flex-col gap-2 p-3 sm:gap-3 sm:p-5">
-              <span className="w-fit rounded-full bg-[#ddeaf7] px-3 py-1 text-xs font-semibold text-[#1a4fa0]">
+            <div className="flex flex-1 flex-col gap-1 p-2 sm:gap-3 sm:p-5">
+              <span className="w-fit rounded-full bg-[#ddeaf7] px-1.5 py-0.5 text-[10px] font-semibold text-[#1a4fa0] sm:px-3 sm:py-1 sm:text-xs">
                 Episode {episode}
               </span>
-              <h3 className="text-base font-bold text-[#0d1b3e]">
+              <h3 className="text-[11px] font-bold leading-tight text-[#0d1b3e] sm:text-base">
                 Capital Conversations — Ep. {episode}
               </h3>
               <div className="mt-auto">
@@ -175,12 +175,12 @@ export function WebinarGrid() {
                   href={youtubeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-1 rounded bg-[#1a4fa0] px-2 py-2 text-xs font-semibold text-white transition-opacity hover:opacity-90 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
+                  className="inline-flex w-full items-center justify-center gap-1 rounded bg-[#1a4fa0] px-1.5 py-1 text-[10px] font-semibold text-white transition-opacity hover:opacity-90 sm:gap-2 sm:px-4 sm:py-2.5 sm:text-sm"
                 >
-                  <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4 shrink-0" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" className="hidden h-3 w-3 shrink-0 sm:block sm:h-4 sm:w-4" aria-hidden="true">
                     <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                   </svg>
-                  Watch on YouTube
+                  <span className="hidden sm:inline">Watch on </span>YouTube
                 </Link>
               </div>
             </div>
@@ -189,22 +189,22 @@ export function WebinarGrid() {
       </div>
 
       {/* Pagination */}
-      <div className="mt-12 flex items-center justify-center gap-4">
+      <div className="mt-8 flex items-center justify-center gap-2 sm:mt-12 sm:gap-4">
         <button
           type="button"
           onClick={() => goTo(page - 1)}
           disabled={page === 1}
           aria-label="Previous page"
-          className="inline-flex items-center gap-2 rounded border border-[#1a4fa0] px-5 py-2.5 text-sm font-semibold text-[#1a4fa0] transition-colors hover:bg-[#ddeaf7] disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
+          className="inline-flex items-center gap-1 rounded border border-[#1a4fa0] px-3 py-1.5 text-xs font-semibold text-[#1a4fa0] transition-colors hover:bg-[#ddeaf7] disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
         >
-          <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
+          <svg viewBox="0 0 16 16" fill="none" className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true">
             <path d="M10 3L5 8l5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Previous
+          <span className="hidden sm:inline">Previous</span>
         </button>
 
         {/* Page indicators */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           {Array.from({ length: TOTAL_PAGES }, (_, i) => i + 1).map((p) => (
             <button
               key={p}
@@ -213,7 +213,7 @@ export function WebinarGrid() {
               aria-label={`Page ${p}`}
               aria-current={p === page ? "page" : undefined}
               className={cn(
-                "flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold transition-colors",
+                "flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold transition-colors sm:h-9 sm:w-9 sm:text-sm",
                 p === page
                   ? "bg-[#1a4fa0] text-white"
                   : "border border-gray-200 text-gray-500 hover:border-[#1a4fa0] hover:text-[#1a4fa0]",
@@ -229,10 +229,10 @@ export function WebinarGrid() {
           onClick={() => goTo(page + 1)}
           disabled={page === TOTAL_PAGES}
           aria-label="Next page"
-          className="inline-flex items-center gap-2 rounded border border-[#1a4fa0] px-5 py-2.5 text-sm font-semibold text-[#1a4fa0] transition-colors hover:bg-[#ddeaf7] disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent"
+          className="inline-flex items-center gap-1 rounded border border-[#1a4fa0] px-3 py-1.5 text-xs font-semibold text-[#1a4fa0] transition-colors hover:bg-[#ddeaf7] disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-400 disabled:hover:bg-transparent sm:gap-2 sm:px-5 sm:py-2.5 sm:text-sm"
         >
-          Next
-          <svg viewBox="0 0 16 16" fill="none" className="h-4 w-4" aria-hidden="true">
+          <span className="hidden sm:inline">Next</span>
+          <svg viewBox="0 0 16 16" fill="none" className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true">
             <path d="M6 3l5 5-5 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </button>
