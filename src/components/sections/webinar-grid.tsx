@@ -7,6 +7,61 @@ import { cn } from "@/lib/utils";
 
 const allWebinars = [
   {
+    episode: 20,
+    thumbnail: "/webinar-thumbnails/20.png",
+    youtubeUrl: "https://youtu.be/JgXEmLVFof0?si=jhXIJbqhueismTTT",
+  },
+  {
+    episode: 19,
+    thumbnail: "/webinar-thumbnails/19.png",
+    youtubeUrl: "https://youtu.be/Qursc27Ak3U?si=nSAGMX6HMexJWaED",
+  },
+  {
+    episode: 18,
+    thumbnail: "/webinar-thumbnails/18.png",
+    youtubeUrl: "https://youtu.be/AKZ0o9FBPjc?si=lWc-sz7nGCwdQv9T",
+  },
+  {
+    episode: 17,
+    thumbnail: "/webinar-thumbnails/17.png",
+    youtubeUrl: "https://youtu.be/Umoy7hnWKvo?si=yWyoQMX3I1b_Krq4",
+  },
+  {
+    episode: 16,
+    thumbnail: "/webinar-thumbnails/16.png",
+    youtubeUrl: "https://youtu.be/p--iwtmGZLw?si=JwCtFbvrr67OPOTo",
+  },
+  {
+    episode: 15,
+    thumbnail: "/webinar-thumbnails/15.png",
+    youtubeUrl: "https://youtu.be/mv-G92hSZQo?si=ZoIlizxi5YuA3GQR",
+  },
+  {
+    episode: 14,
+    thumbnail: "/webinar-thumbnails/14.png",
+    youtubeUrl: "https://youtu.be/ulcpqMkkH6E?si=meSEX-L4_j3HwmSH",
+  },
+  {
+    episode: 13,
+    thumbnail: "/webinar-thumbnails/13.png",
+    youtubeUrl: "https://youtu.be/nFqFizY5Z5o?si=5kXTR6Th3MrwSVUU",
+  },
+  {
+    episode: 12,
+    thumbnail: "/webinar-thumbnails/12.png",
+    youtubeUrl: "https://youtu.be/OG-DHonj5Zc?si=LSyPKX7q2xXtQOvZ",
+  },
+  {
+    episode: 11,
+    thumbnail: "/webinar-thumbnails/11.png",
+    youtubeUrl: "https://youtu.be/pGFolvXa_g4?si=hwvSWjo1utexUyIg",
+  },
+  {
+    episode: 10,
+    thumbnail: "/webinar-thumbnails/10.png",
+    youtubeUrl: "https://youtu.be/37zj5EhyOeY?si=nWP4wXkRbC_XjiIx",
+  },
+  {
     episode: 9,
     thumbnail: "/webinar-thumbnails/capital-conversations-9.webp",
     youtubeUrl: "https://youtu.be/FclWTX7_iGs?si=VPoXP5YKetVe7zCu",
